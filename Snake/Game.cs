@@ -47,9 +47,10 @@ namespace Snake
                 {
                     food.Generate(snake1.Body, snake2.Body);
 
-                    Draw();
-                    Thread.Sleep(100);
                 }
+
+                Draw();
+                Thread.Sleep(100);
             }
         }
         
