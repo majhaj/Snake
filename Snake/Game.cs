@@ -51,6 +51,7 @@ namespace Snake
                     Thread.Sleep(100);
                 }
             }
+        }
         
 
         private void Draw()
