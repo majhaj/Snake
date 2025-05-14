@@ -46,7 +46,6 @@ namespace Snake
                 if (snake1.Eat(food.Position) || snake2.Eat(food.Position))
                 {
                     food.Generate(snake1.Body, snake2.Body);
-                }
 
                 Draw();
                 Thread.Sleep(100);
