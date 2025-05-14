@@ -11,13 +11,13 @@ namespace Snake
         public (int x, int y) Position { get; private set; }
         private Random random = new Random();
 
-        public void Generate(List<(int x, int y)> snakeBody)
+        public void Generate(List<(int x, int y)> snake1Body, List<(int x, int y)> snake2Body)
         {
             do
             {
                 Position = (random.Next(0, Console.WindowWidth),
                             random.Next(0, Console.WindowHeight));
-            } while (snakeBody.Contains(Position));
+            } while (snake1Body.Contains(Position) || snake2Body.Contains(Position));
         }
 
         public void Draw()
