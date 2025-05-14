@@ -44,10 +44,11 @@ namespace Snake
                     food.Generate(snake.Body);
                 }
 
-                Draw();
-                Thread.Sleep(100);
+                    Draw();
+                    Thread.Sleep(100);
+                }
             }
-        }
+        
 
         private void Draw()
         {
