@@ -10,21 +10,36 @@ namespace Snake
     {
         public List<(int x, int y)> Body { get; private set; }
         private (int x, int y) direction;
+        private ConsoleColor color;
 
-        public Snake()
+        public Snake((int x, int y) startPosition, ConsoleColor color)
         {
-            Body = new List<(int x, int y)> { (10, 10) };
+            Body = new List<(int x, int y)> { startPosition };
             direction = (1, 0);
+            this.color = color;
         }
 
-        public void ChangeDirection(ConsoleKey key)
+        public void ChangeDirection(ConsoleKey key, bool isPlayerOne)
         {
-            switch (key)
+            if (isPlayerOne)
             {
-                case ConsoleKey.UpArrow: if (direction.y != 1) direction = (0, -1); break;
-                case ConsoleKey.DownArrow: if (direction.y != -1) direction = (0, 1); break;
-                case ConsoleKey.LeftArrow: if (direction.x != 1) direction = (-1, 0); break;
-                case ConsoleKey.RightArrow: if (direction.x != -1) direction = (1, 0); break;
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow: if (direction.y != 1) direction = (0, -1); break;
+                    case ConsoleKey.DownArrow: if (direction.y != -1) direction = (0, 1); break;
+                    case ConsoleKey.LeftArrow: if (direction.x != 1) direction = (-1, 0); break;
+                    case ConsoleKey.RightArrow: if (direction.x != -1) direction = (1, 0); break;
+                }
+            }
+            else
+            {
+                switch (key)
+                {
+                    case ConsoleKey.W: if (direction.y != 1) direction = (0, -1); break;
+                    case ConsoleKey.S: if (direction.y != -1) direction = (0, 1); break;
+                    case ConsoleKey.A: if (direction.x != 1) direction = (-1, 0); break;
+                    case ConsoleKey.D: if (direction.x != -1) direction = (1, 0); break;
+                }
             }
         }
 
@@ -58,14 +73,25 @@ namespace Snake
             return false;
         }
 
+        public bool CollidesWith(Snake other)
+        {
+            var head = Body[0];
+            foreach (var segment in other.Body)
+            {
+                if (segment == head) return true;
+            }
+            return false;
+        }
+
         public void Draw()
         {
+            Console.ForegroundColor = color;
             foreach (var part in Body)
             {
                 Console.SetCursorPosition(part.x, part.y);
                 Console.Write("O");
             }
+            Console.ResetColor();
         }
     }
 }
-
